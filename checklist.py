@@ -3,7 +3,7 @@ checklist = list()
 def create(item):
     checklist.append(item)
 def read(index):
-    item = checklist[index]
+    item = mark_completed(index)
     return item
 def update(index, item):
     checklist[index] = item
@@ -16,8 +16,14 @@ def list_all_items():
         index += 1
 
 def mark_completed(index):
-    checklist[int(index)] = str('√') + checklist[int(index)]
-    print(checklist[index])
+    checklist[index] = "√" + checklist[index]
+    return checklist[index]
+
+def index_exist(index):
+    if index < len(checklist):
+        return True
+    else:
+         print("Index out of bound, please enter a value between %d and %d" % (0, len(checklist)-1))
 
 def select(function_code):
     # Create item
@@ -28,16 +34,23 @@ def select(function_code):
     elif function_code == "R":
         item_index = user_input("Index Number?")
         # Remember that item_index must actually exist or our program will crash.
-        read(int(item_index))
+        if index_exist(int(item_index)):
+            print(read(int(item_index)))
+            #print(check_index(int(item_index)))
+        #item_index = check_index(int(item_index))
+
+
     # update item
     elif function_code == "U":
         item_index_tobeupdated = user_input("Index Number To be Updated?")
         input_item_toupdate = user_input("Input item to replace:")
-        update(int(item_index_tobeupdated), input_item_toupdate)
+        if index_exist(int(item_index_tobeupdated)):
+            update(int(item_index_tobeupdated), input_item_toupdate)
     # destroy item
     elif function_code == "D":
         item_index_tobedestroyed = user_input("Index Number To be Destroyed?")
-        destroy(int(item_index_tobedestroyed))
+        if index_exist(int(item_index_tobedestroyed)):
+            destroy(int(item_index_tobedestroyed))
     # Print all items
     elif function_code == "P":
         list_all_items()
@@ -56,14 +69,21 @@ def user_input(prompt):
     return user_input
 
 def test():
-    #create("hi")
-    checklist.append("HI")
+    create("Purple socks")
+    create("Yellow hat")
+    create("Pink pants")
 
-    mark_completed(0)
+    #checklist.append("HI")
+
+    #print(read(0))
+
+    #mark_completed(0)
+    #mark_completed(1)
+    #mark_completed(2)
     ##create("Purple sox")
     ##create("red cloak")
 
-    ##print(read(0))
+
     ##print(read(1))
 
     ##update(0, "Purple socks")
