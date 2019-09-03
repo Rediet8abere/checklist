@@ -24,11 +24,13 @@ def mark_completed(index):
     return checklist[index]
 def unmark(index):
     item = checklist[index]
-    print(item)
-    item = item.replace(item[0], '')
-    print(item)
-    return item
-
+    #print(item)
+    if item[0] == "√":
+        item = item.replace(item[0], '')
+        #print(item)
+        return item
+    else:
+        print("Item was not marked no need to unmark")
 
 def index_exist(index):
     if index < len(checklist):
