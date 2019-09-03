@@ -1,4 +1,10 @@
 #try adding colors to the terminal output
+#from colorama import Fore, Back, Style
+#print(Fore.RED + 'some red text')
+#print(Back.lightgrey + 'and with a green background')
+#from colorama import init, Fore, Back, Style
+
+
 checklist = list()
 def create(item):
     checklist.append(item)
@@ -12,7 +18,7 @@ def destroy(index):
 def list_all_items():
     index = 0
     for list_item in checklist:
-        print("{} {}".format (str(index), list_item))
+        print(" \u001b[33m {} {}".format (str(index), list_item))
         index += 1
 
 def mark_completed(index):
@@ -23,16 +29,16 @@ def index_exist(index):
     if index < len(checklist):
         return True
     else:
-         print("Index out of bound, please enter a value between %d and %d" % (0, len(checklist)-1))
+         print("\u001b[31 Index out of bound, please enter a value between %d and %d" % (0, len(checklist)-1))
 
 def select(function_code):
     # Create item
     if function_code == "C":
-        input_item = user_input("Input item:")
+        input_item = user_input("\u001b[36m Input item: ")
         create(input_item)
     # Read item
     elif function_code == "R":
-        item_index = user_input("Index Number?")
+        item_index = user_input("\u001b[35m Index Number? ")
         # Remember that item_index must actually exist or our program will crash.
         if index_exist(int(item_index)):
             print(read(int(item_index)))
@@ -42,7 +48,7 @@ def select(function_code):
 
     # update item
     elif function_code == "U":
-        item_index_tobeupdated = user_input("Index Number To be Updated?")
+        item_index_tobeupdated = user_input("\u001b[36m Index Number To be Updated? ")
         input_item_toupdate = user_input("Input item to replace:")
         if index_exist(int(item_index_tobeupdated)):
             update(int(item_index_tobeupdated), input_item_toupdate)
@@ -114,5 +120,6 @@ test()
 
 running = True
 while running:
-    selection = user_input("Press C to add list, R to Read from list, P to display list, U to update an item, D to destroy, and Q quit: ")
+
+    selection = user_input("\033[32m Press C to add list, R to Read from list, P to display list, U to update an item, D to destroy, and Q quit: \033[m")
     running = select(selection.upper())
