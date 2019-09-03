@@ -24,6 +24,10 @@ def list_all_items():
 def mark_completed(index):
     checklist[index] = "√" + checklist[index]
     return checklist[index]
+def unmark(index):
+    item = checklist[index]
+    item = item.replace("√", "")
+    return item
 
 def index_exist(index):
     if index < len(checklist):
@@ -44,7 +48,9 @@ def select(function_code):
             print(read(int(item_index)))
             #print(check_index(int(item_index)))
         #item_index = check_index(int(item_index))
-
+    elif function_code == "X":
+        index_unmarked = user_input("\u001b[35m Index Number? ")
+        print(unmark(index_unmarked))
 
     # update item
     elif function_code == "U":
@@ -54,7 +60,7 @@ def select(function_code):
             update(int(item_index_tobeupdated), input_item_toupdate)
     # destroy item
     elif function_code == "D":
-        item_index_tobedestroyed = user_input("Index Number To be Destroyed?")
+        item_index_tobedestroyed = user_input("\u001b[33m Index Number To be Destroyed?")
         if index_exist(int(item_index_tobedestroyed)):
             destroy(int(item_index_tobedestroyed))
     # Print all items
@@ -121,5 +127,5 @@ test()
 running = True
 while running:
 
-    selection = user_input("\033[32m Press C to add list, R to Read from list, P to display list, U to update an item, D to destroy, and Q quit: \033[m")
+    selection = user_input("\033[32m Press C to add list, R to Read from list, X to unmark list, P to display list, U to update an item, D to destroy, and Q quit: \033[m")
     running = select(selection.upper())
