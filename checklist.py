@@ -3,8 +3,6 @@
 #print(Fore.RED + 'some red text')
 #print(Back.lightgrey + 'and with a green background')
 #from colorama import init, Fore, Back, Style
-
-
 checklist = list()
 def create(item):
     checklist.append(item)
@@ -26,8 +24,11 @@ def mark_completed(index):
     return checklist[index]
 def unmark(index):
     item = checklist[index]
-    item = item.replace("√", "")
+    print(item)
+    item = item.replace(item[0], '')
+    print(item)
     return item
+
 
 def index_exist(index):
     if index < len(checklist):
@@ -50,8 +51,8 @@ def select(function_code):
         #item_index = check_index(int(item_index))
     elif function_code == "X":
         index_unmarked = user_input("\u001b[35m Index Number? ")
-        print(unmark(index_unmarked))
-
+        unmarked_item = unmark(int(index_unmarked))
+        update (int(index_unmarked), unmarked_item)
     # update item
     elif function_code == "U":
         item_index_tobeupdated = user_input("\u001b[36m Index Number To be Updated? ")
